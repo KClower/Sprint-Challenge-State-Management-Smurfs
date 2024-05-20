@@ -1,14 +1,30 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { ColorRing } from "react-loader-spinner"
+import { addSmurf } from "../Actions";
 
 const Form = (props) => {
 
-    const [findSmurf, setFindSmurf] = useState()
+    const [newSmurf, setNewSmurf] = useState({
+        name: "",
+        age: "",
+        height: ""
+    })
 
     const handleChanges = (e) => {
-        setFindSmurf(e.target.value);
+        setNewSmurf({ ...newSmurf, [e.target.name]: e.target.value });
     }
+
+    const formSubmit = (e) => {
+        e.preventDefault();
+        props.addSmurf({ ...newSmurf, height: newSmurf.height + "cm" })
+        setNewSmurf({
+            name: "",
+            age: "",
+            height: ""
+        })
+    }
+
 
     const renderColorRing = () => {
         return (
@@ -24,12 +40,34 @@ const Form = (props) => {
     };
 
     return (
-        <form>
-            <input
-                type="text"
-                value={findSmurf}
-                onChange={handleChanges}
-            />
+        <form onSubmit={formSubmit}>
+            <label htmlFor='name'>
+                Name:
+                <input
+                    type="text"
+                    name='name'
+                    value={newSmurf.name}
+                    onChange={handleChanges}
+                />
+            </label>
+            <label htmlFor='age'>
+                Age:
+                <input
+                    type="text"
+                    name="age"
+                    value={newSmurf.age}
+                    onChange={handleChanges}
+                />
+            </label>
+            <label htmlFor='height'>
+                Height:
+                <input
+                    type="text"
+                    name="height"
+                    value={newSmurf.height}
+                    onChange={handleChanges}
+                />
+            </label>
             <button> {props.isLoading ? renderColorRing() : "Add Smurf"}</button>
         </form>
     )
@@ -41,4 +79,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {})(Form);
+export default connect(mapStateToProps, { addSmurf })(Form);

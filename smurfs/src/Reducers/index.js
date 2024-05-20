@@ -1,15 +1,10 @@
 
-import { FETCH_SMURFS_START } from "../Actions";
-import { FETCH_SMURFS_SUCCESS } from "../Actions";
+import { ADD_SMURF, ADD_SMURF_SUCCESS, FETCH_SMURFS_START, FETCH_SMURFS_SUCCESS } from "../Actions";
+
+
 
 const initialState = {
-    smurfs: [
-        {
-            name: "",
-            age: "",
-            height: ""
-        }
-    ],
+    smurfs: [],
     isLoading: false,
     error: "",
 }
@@ -24,6 +19,17 @@ export const reducer = (state = initialState, action) => {
                 isLoading: true
             };
         case FETCH_SMURFS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                smurfs: action.payload
+            }
+        case ADD_SMURF:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case ADD_SMURF_SUCCESS:
             return {
                 ...state,
                 isLoading: false,

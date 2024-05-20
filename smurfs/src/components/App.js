@@ -15,34 +15,36 @@ import {
 
 
 function App(props) {
-  props.fetchSmurfs()
-  useEffect(() => {
 
+  useEffect(() => {
+    props.fetchSmurfs()
   }, [])
 
   return (
     <div className="App">
       <h1>SMURFS!</h1>
       <Form />
-      {props.smurfs.map((smurf) => (
-        <Card
-          style={{
-            width: '18rem'
-          }}
-        >
-          <CardBody>
-            <CardTitle tag="h3">
-              {smurf.name}
-            </CardTitle>
-            <CardText className="my-0">
-              Age: {smurf.age}
-            </CardText>
-            <CardText>
-              Height: {smurf.height}
-            </CardText>
-          </CardBody>
-        </Card>
-      ))}
+      <div>
+        {props.smurfs.map((smurf) => (
+          <Card
+            style={{
+              width: '18rem'
+            }}
+          >
+            <CardBody>
+              <CardTitle tag="h3">
+                {smurf.name}
+              </CardTitle>
+              <CardText className="my-0">
+                Age: {smurf.age}
+              </CardText>
+              <CardText>
+                Height: {smurf.height}
+              </CardText>
+            </CardBody>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
